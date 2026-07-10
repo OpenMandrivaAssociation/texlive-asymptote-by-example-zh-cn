@@ -1,34 +1,21 @@
-Name:		texlive-asymptote-by-example-zh-cn
-Version:	15878
-Release:	2
+%global tl_name asymptote-by-example-zh-cn
+%global tl_revision 15878
+
+Name:		texlive-%{tl_name}
+Version:	%{tl_revision}
+Release:	1
 Summary:	Asymptote by example
 Group:		Publishing
-URL:		https://www.ctan.org/tex-archive/macros/latex/contrib/asymptote-by-example-zh-cn
+URL:		https://www.ctan.org/tex-archive/info/asymptote-by-example-zh-cn
 License:	gpl
-Source0:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/asymptote-by-example-zh-cn.r%{version}.tar.xz
-Source1:	http://mirrors.ctan.org/systems/texlive/tlnet/archive/asymptote-by-example-zh-cn.doc.r%{version}.tar.xz
+Source0:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/asymptote-by-example-zh-cn.r%{tl_revision}.tar.xz
+Source1:	https://mirrors.ctan.org/systems/texlive/tlnet/archive/asymptote-by-example-zh-cn.doc.r%{tl_revision}.tar.xz
 BuildArch:	noarch
+BuildSystem:	texlive
 BuildRequires:	texlive-tlpkg
-Requires(pre):	texlive-tlpkg
-Requires(post):	texlive-kpathsea
+%texlive_base_requires
+Provides:	texlive(%{tl_name}) = %{tl_revision}
 
 %description
 This is a tutorial written in Simplified Chinese.
 
-%prep
-%autosetup -p1 -c -a1
-
-%build
-
-%install
-rm -rf tlpkg
-mkdir -p %{buildroot}%{_texmfdistdir}
-cp -a * %{buildroot}%{_texmfdistdir}
-
-%files
-%doc %{_texmfdistdir}/doc/support/asymptote-by-example-zh-cn
-
-%post -p %{_sbindir}/texlive.post
-
-%postun
-[ "$1" -eq 0 ] && %{_sbindir}/texlive.post
